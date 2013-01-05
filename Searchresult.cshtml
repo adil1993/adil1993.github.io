@@ -8,12 +8,8 @@
      }
      
      var db = Database.Open("Product");
-     var q = "select * from products where description=@0";
-     var qq = "select * from products where name=@0";
-     var qqq = "select * from products where category=@0"; 
-     var data  = db.Query(q,textbox); 
-     var data1  = db.Query(qq,textbox); 
-     var data2  = db.Query(qqq,textbox); 
+     var q = "select * from products";
+     var data = db.Query(q);
           
 }
 
@@ -28,11 +24,16 @@
        
               
          @{
-             
+             if(textbox!=""){
                     <div class="products group">
                    @foreach (var p in data) 
                    { 
-                       
+                       var n = p.name.ToString();
+                       var cat = p.category.ToString();
+                       var descc = p.description.ToString();
+                       var pr = p.price.ToString();
+                       if(n.Contains(textbox) || cat.Contains(textbox) || descc.Contains(textbox) || pr.Contains(textbox) )
+                       {
                       <div class="product">
                        <h3>@p.name</h3>
                         <a href="@Href("~/ProductDetail.cshtml", p.Id)">
@@ -43,33 +44,8 @@
              
             
                          </div>
+                        }
                     }
-                     @foreach (var p in data1) 
-                   {
-                      <div class="product">
-                       <h3>@p.name</h3>
-                        <a href="@Href("~/ProductDetail.cshtml", p.Id)">
-                        <img style="width: 200px;height: 150px;" src=@p.imagePath alt="">
-                         </a>
-                            @p.description<br/>
-                        $@string.Format("{0:f}", p.price)
-             
-            
-                         </div>
-                    }
-                     @foreach (var p in data2) 
-                    {
-                      <div class="product">
-                       <h3>@p.name</h3>
-                        <a href="@Href("~/ProductDetail.cshtml", p.Id)">
-                        <img style="width: 200px;height: 150px;" src=@p.imagePath alt="">
-                         </a>
-                            @p.description<br/>
-                        $@string.Format("{0:f}", p.price)
-             
-            
-                         </div>
-                    }               
                          </div>
                     
               
@@ -77,7 +53,7 @@
                 
                  
                
-               
+               }
         }
           
         </div>
