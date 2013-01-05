@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Layout/_Layout.cshtml";
+    var textbox = Request["Search"];
+     var counter = 1;
+     if(textbox=="")
+     {
+                  <div style="font-size: 20px;">Sorry no result(s) found</div><br/>
+     }
+     
+     var db = Database.Open("Product");
+     var q = "select * from products where description=@0";
+     var qq = "select * from products where name=@0";
+     var qqq = "select * from products where category=@0"; 
+     var data  = db.Query(q,textbox); 
+     var data1  = db.Query(qq,textbox); 
+     var data2  = db.Query(qqq,textbox); 
+          
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body> 
+       
+              
+         @{
+             
+                    <div class="products group">
+                   @foreach (var p in data) 
+                   { 
+                       
+                      <div class="product">
+                       <h3>@p.name</h3>
+                        <a href="@Href("~/ProductDetail.cshtml", p.Id)">
+                        <img style="width: 200px;height: 150px;" src=@p.imagePath alt="">
+                         </a>
+                            @p.description<br/>
+                        $@string.Format("{0:f}", p.price)
+             
+            
+                         </div>
+                    }
+                     @foreach (var p in data1) 
+                   {
+                      <div class="product">
+                       <h3>@p.name</h3>
+                        <a href="@Href("~/ProductDetail.cshtml", p.Id)">
+                        <img style="width: 200px;height: 150px;" src=@p.imagePath alt="">
+                         </a>
+                            @p.description<br/>
+                        $@string.Format("{0:f}", p.price)
+             
+            
+                         </div>
+                    }
+                     @foreach (var p in data2) 
+                    {
+                      <div class="product">
+                       <h3>@p.name</h3>
+                        <a href="@Href("~/ProductDetail.cshtml", p.Id)">
+                        <img style="width: 200px;height: 150px;" src=@p.imagePath alt="">
+                         </a>
+                            @p.description<br/>
+                        $@string.Format("{0:f}", p.price)
+             
+            
+                         </div>
+                    }               
+                         </div>
+                    
+              
+               
+                
+                 
+               
+               
+        }
+          
+        </div>
+          
+    </body>
+</html>
