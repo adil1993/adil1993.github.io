@@ -8,54 +8,60 @@
 <body>
 <div class="container">
 
-<h1>Intelligent Log Analyzer</h1>
-<p><strong>AI-Augmented Incident Analysis Engine</strong></p>
+<div class="hero">
+    <h1>Intelligent Log Analyzer</h1>
+    <p>Designing a Hybrid AI + Deterministic Incident Intelligence Engine</p>
+</div>
 
 <h2>Problem</h2>
 <p>
-Modern systems generate large volumes of logs. Identifying the primary root cause during
-an incident is time-consuming and error-prone. Pure regex systems lack reasoning,
-while pure LLM systems lack guardrails and reliability.
+Modern production systems generate vast volumes of logs. During incidents, engineers must rapidly identify root causes under pressure.
+Traditional regex-based systems lack contextual reasoning, while pure LLM systems introduce unpredictability and hallucination risk.
+This project explores a hybrid approach.
 </p>
 
-<h2>Architecture</h2>
-<p>
-The system combines deterministic parsing with AI reasoning:
-</p>
-<ul>
-<li>Deterministic log metrics extraction (error count, timestamps, uniqueness)</li>
-<li>Condensed structured summary</li>
-<li>Strict JSON schema enforcement via Pydantic</li>
-<li>LLM reasoning layer (controlled temperature)</li>
-<li>Confidence scoring + structured output validation</li>
-</ul>
+<h2>System Architecture</h2>
 
-<h2>Design Decisions</h2>
+<div class="diagram">
+<svg width="100%" height="260">
+  <text x="50%" y="30" text-anchor="middle" font-size="16">Raw Logs</text>
+  <line x1="50%" y1="40" x2="50%" y2="70" stroke="#2563eb"/>
+  <text x="50%" y="90" text-anchor="middle" font-size="16">Deterministic Parser</text>
+  <line x1="50%" y1="100" x2="50%" y2="130" stroke="#2563eb"/>
+  <text x="50%" y="150" text-anchor="middle" font-size="16">Metrics Extraction Layer</text>
+  <line x1="50%" y1="160" x2="50%" y2="190" stroke="#2563eb"/>
+  <text x="50%" y="210" text-anchor="middle" font-size="16">LLM Reasoning Engine</text>
+  <line x1="50%" y1="220" x2="50%" y2="250" stroke="#2563eb"/>
+  <text x="50%" y="270" text-anchor="middle" font-size="16">Schema Validation → Structured Incident Report</text>
+</svg>
+</div>
+
+<h2>Key Design Decisions</h2>
 <ul>
-<li><strong>Hybrid Model:</strong> Deterministic + LLM to reduce hallucination risk</li>
-<li><strong>Schema Validation:</strong> Ensures predictable structured output</li>
-<li><strong>Controlled Context:</strong> Truncated logs to manage cost and latency</li>
-<li><strong>Observability:</strong> Request ID + timestamping</li>
+<li><strong>Hybrid Model:</strong> Deterministic metrics reduce hallucination risk.</li>
+<li><strong>Strict JSON Schema:</strong> Pydantic validation ensures predictable outputs.</li>
+<li><strong>Controlled Temperature:</strong> Reduced variance in AI reasoning.</li>
+<li><strong>Observability:</strong> Request ID + timestamps for traceability.</li>
 </ul>
 
 <h2>Guardrails Against Hallucination</h2>
 <ul>
-<li>Explicit JSON-only output instructions</li>
-<li>Pydantic validation before UI rendering</li>
-<li>Error fallback handling for malformed AI output</li>
+<li>Explicit JSON-only output instruction</li>
+<li>Post-response validation before UI rendering</li>
+<li>Error fallback rendering</li>
 </ul>
 
 <h2>Tradeoffs</h2>
 <ul>
-<li>LLM adds latency and cost</li>
-<li>Context truncation may miss deep historical correlations</li>
-<li>System designed for incident summarization, not full RCA automation</li>
+<li>LLM introduces latency</li>
+<li>Cost scales with input size</li>
+<li>Context truncation may reduce deep correlation detection</li>
 </ul>
 
-<h2>Future Improvements</h2>
+<h2>Future Enhancements</h2>
 <ul>
-<li>Caching identical log hashes</li>
-<li>Rate limiting</li>
+<li>Log hash-based caching layer</li>
+<li>Rate limiting middleware</li>
 <li>Streaming responses</li>
 <li>Embedding-based anomaly clustering</li>
 </ul>
@@ -66,7 +72,7 @@ The system combines deterministic parsing with AI reasoning:
 </p>
 
 <div class="footer">
-    Engineering case study. Built with FastAPI + OpenAI API.
+Engineering case study. Built with FastAPI and OpenAI API.
 </div>
 
 </div>
