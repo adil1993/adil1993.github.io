@@ -20,7 +20,7 @@ AI-augmented incident analysis engine combining deterministic log parsing with s
 - Production-minded design decisions
 
 Project repository:  
-https://github.com/yourusername/intelligent-log-analyzer
+https://github.com/adil1993/intelligent-log-analyzer
 
 ---
 
