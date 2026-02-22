@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intelligent Log Analyzer - Case Study</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="container">
+
+<h1>Intelligent Log Analyzer</h1>
+<p><strong>AI-Augmented Incident Analysis Engine</strong></p>
+
+<h2>Problem</h2>
+<p>
+Modern systems generate large volumes of logs. Identifying the primary root cause during
+an incident is time-consuming and error-prone. Pure regex systems lack reasoning,
+while pure LLM systems lack guardrails and reliability.
+</p>
+
+<h2>Architecture</h2>
+<p>
+The system combines deterministic parsing with AI reasoning:
+</p>
+<ul>
+<li>Deterministic log metrics extraction (error count, timestamps, uniqueness)</li>
+<li>Condensed structured summary</li>
+<li>Strict JSON schema enforcement via Pydantic</li>
+<li>LLM reasoning layer (controlled temperature)</li>
+<li>Confidence scoring + structured output validation</li>
+</ul>
+
+<h2>Design Decisions</h2>
+<ul>
+<li><strong>Hybrid Model:</strong> Deterministic + LLM to reduce hallucination risk</li>
+<li><strong>Schema Validation:</strong> Ensures predictable structured output</li>
+<li><strong>Controlled Context:</strong> Truncated logs to manage cost and latency</li>
+<li><strong>Observability:</strong> Request ID + timestamping</li>
+</ul>
+
+<h2>Guardrails Against Hallucination</h2>
+<ul>
+<li>Explicit JSON-only output instructions</li>
+<li>Pydantic validation before UI rendering</li>
+<li>Error fallback handling for malformed AI output</li>
+</ul>
+
+<h2>Tradeoffs</h2>
+<ul>
+<li>LLM adds latency and cost</li>
+<li>Context truncation may miss deep historical correlations</li>
+<li>System designed for incident summarization, not full RCA automation</li>
+</ul>
+
+<h2>Future Improvements</h2>
+<ul>
+<li>Caching identical log hashes</li>
+<li>Rate limiting</li>
+<li>Streaming responses</li>
+<li>Embedding-based anomaly clustering</li>
+</ul>
+
+<h2>Repository</h2>
+<p>
+<a href="#">View GitHub Repository</a>
+</p>
+
+<div class="footer">
+    Engineering case study. Built with FastAPI + OpenAI API.
+</div>
+
+</div>
+</body>
+</html>
